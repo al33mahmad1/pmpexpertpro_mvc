@@ -1,0 +1,8 @@
+# Configuration File:
+# That will redirect the request to ./public/index.php file.
+
+<IfModule mod_rewrite.c>
+  RewriteEngine on
+  RewriteCond %{REQUEST_URI} !/public/
+  RewriteRule (.*) public/$1 [L]
+</IfModule>
