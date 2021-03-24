@@ -56,7 +56,7 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body p-0">
-                <table class="table table-bordered table-hover">
+                <table class="table table-bordered table-hover text-sm">
                   <thead>
                     <tr>
                       <th>ID</th>
@@ -88,7 +88,7 @@
                           <div class="col-md-6">
                             <a href="<?=URLROOT?>/logs/loginLogs/<?=$user['id']?>" class="btn btn-outline-warning btn-sm ml-1 float-right">View Login Logs</a>
                             <a href="<?=URLROOT?>/logs/testLogs/<?=$user['id']?>" class="btn btn-outline-dark btn-sm ml-1 float-right">View Tests Logs</a>
-                            <a href="<?=URLROOT?>/logs/resultVisitLogs/<?=$user['id']?>" class="btn btn-outline-primary btn-sm ml-1 float-right">View Results Visit Logs</a>
+                            <!-- <a href="<?=URLROOT?>/logs/resultVisitLogs/<?=$user['id']?>" class="btn btn-outline-primary btn-sm ml-1 float-right">View Results Visit Logs</a> -->
                           </div>
                         </div>
                       </td>

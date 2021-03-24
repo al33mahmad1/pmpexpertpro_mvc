@@ -3,6 +3,7 @@
 		public function __construct() {
 			$this->userModel = $this->model('User');
 			$this->loginLogsModelModel = $this->model('Loginlog');
+			$this->assessmentModel = $this->model('Assessment');
 		}
 
 		public function index() {
@@ -38,6 +39,38 @@
 							$data['loginLogs'] = $temp;
 
 						$this->view("logs/loginlogs", $data);
+					} else {
+						flash("error", "Invalid Client id!");
+						redirect("users/list");
+					}
+				} else
+					redirect("pages/home");
+
+			} else
+				redirect("users/login");
+			
+		}
+
+		public function testLogs($userId = NULL) {
+
+			if(isLoggedIn()) {
+				if(isAdmin()) {
+					if($userId === NULL)
+						redirect("users/list");
+
+					if($this->userModel->isUserAvailableById($userId)) {
+
+						$data = [
+							'title' => SITENAME . " | Dashboard",
+							'assessmentsHistory' => false
+						];
+
+						if($temp = $this->assessmentModel->getAssessmentsTakenHistoryById($userId))
+							$data['assessmentsHistory'] = $temp;
+
+							// diee($data);
+
+						$this->view("logs/testsTakenLogs", $data);
 					} else {
 						flash("error", "Invalid Client id!");
 						redirect("users/list");

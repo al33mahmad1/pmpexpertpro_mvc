@@ -4,7 +4,8 @@ import { AjaxCall } from "../modules/ajax/ajax.js";
 
     function ValidateEmail(mail) {
 
-        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
+        // if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
+        if (mail.length > 0) {
            return true;
         }
         return false;
@@ -13,7 +14,8 @@ import { AjaxCall } from "../modules/ajax/ajax.js";
        
     function ValidatePassword(password) {
 
-        if (/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,30}$/.test(password)) {
+        // if (/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,30}$/.test(password)) {
+        if (password.length > 0) {
             return true;
         }
         return false;
@@ -25,7 +27,7 @@ import { AjaxCall } from "../modules/ajax/ajax.js";
         $("#" + id).html(message);
         $("#" + id).fadeIn("slow");
         setTimeout(function() {
-            $("#" + id).fadeOut("slow");
+            $("#" + id).fadeOut("slow");    
         }, 6000);
 
     }

@@ -19,7 +19,9 @@
 
 	// Membership Access vars
 	define("BASIC", "basic");
-	define("STANDARD", "standard");
-	define("PREMIUM", "premium");
-	define("COMPREHENSIVE", "comprehensive");
+	define("STANDARD", "scrum");
+	define("PREMIUM", "agilepremium");
+	define("COMPREHENSIVE", "agileandscrum");
 
+	// Secret fro payment success
+	define("PAYMENT_SECRET", "PAY_WITH_PAYPAL");

@@ -31,6 +31,31 @@
 
     function diee($data) {
         echo "<pre>";
-        die(print_r($data));
+        die(var_dump($data));
         echo "</pre>";
+    }
+
+    function containsId($id, $foo) {
+        $found = current(array_filter($foo, function($item) use($id) {
+            return isset($item['assessment_id']) && $id == $item['assessment_id']; 	
+        }));
+        if($found)
+            return true;
+        return false;
+    }
+
+    function senEmail($to, $password) {
+        $subject = "Congratulations, You're all set!";
+         
+        $message = "Thank you for choosing PMPEXPERTPRO\r\nYour temporary password is: ".$password."\r\nAnd your email is: ".$to."\r\nPlease change your password in your dashboard.";
+        $header = "From:support@pmpexpertpro.com \r\n";
+     
+        $header .= "MIME-Version: 1.0\r\n";
+        $header .= "Content-type: text/plain\r\n";
+
+        try {
+            mail ($to,$subject,$message,$header);
+        } catch (\Throwable $th) {
+            echo $th->getMessage();
+        }
     }

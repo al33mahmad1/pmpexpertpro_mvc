@@ -30,6 +30,7 @@
 				'yourAssessments' => 0,
 				'totalAssessmentsPending' => 0,
 				'totalAssessmentsAccomplished' => 0,
+				'assessmentsHistory' => false
 			];
 
 			if(isAdmin()) {
@@ -39,7 +40,6 @@
 				$dataAdmin['totalQuestionInScrumCategory'] = $this->categoryModal->totalQuestionInScrumCategory();
 				$dataAdmin['assessmentsTable'] = $this->assessmentModal->getAssessmentWithCategoryAndQuestionCount();
 				$dataAdmin['membershipTable'] = $this->membershipModal->fetchAll();
-				// diee($dataAdmin);
 				$this->view("pages/index", $dataAdmin);
 			} else {
 				switch($_SESSION['PMP_USER_MEMBERSHIP']) {
@@ -62,6 +62,7 @@
 				}
 
 				$dataUser['totalAssessmentsAccomplished'] = $this->assessmentModal->getAccomplishedAssessmentsCount();
+				$dataUser['assessmentsHistory'] = $this->assessmentModal->getAssessmentsTakenHistory();
 				$dataUser['totalAssessmentsPending'] = $dataUser['yourAssessments'] - $dataUser['totalAssessmentsAccomplished'];
 				// diee($dataUser);
 				$this->view("pages/index", $dataUser);

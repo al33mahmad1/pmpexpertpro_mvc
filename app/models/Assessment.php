@@ -20,10 +20,84 @@ class Assessment {
 
 	}
 
+	function isAssessmentAvailable($id) {
+
+		try {
+			$this->db->query("SELECT * FROM assessments where assessment_id=:id;");
+			$this->db->bind(":id", $id);
+			$row = $this->db->single();
+			return ($this->db->rowCount() > 0);
+		} catch (\Throwable $th) {
+			return false;
+		}
+
+	}
+
+	function getTakenAssessment($assessmentId) {
+
+		try {
+			$this->db->query("SELECT att.*, a.assessment_name FROM assessments_taken att, assessments a where att.assessment_id=:assessmentI_d AND att.user_id=:user_id AND a.assessment_id=att.assessment_id ORDER BY date_done DESC LIMIT 1;");
+			$this->db->bind(":assessmentI_d", $assessmentId);
+			$this->db->bind(":user_id", $_SESSION['PMP_USER_ID']);
+			$row = $this->db->singleAssoc();
+			if($this->db->rowCount() > 0)
+				return $row;
+			return false;
+		} catch (\Throwable $th) {
+			return false;
+		}
+
+	}
+
+	function getAssessmentsTakenHistory() {
+
+		try {
+			$this->db->query("SELECT att.*, a.assessment_name FROM assessments_taken att, assessments a where att.user_id=:user_id AND a.assessment_id=att.assessment_id ORDER BY date_done DESC;");
+			$this->db->bind(":user_id", $_SESSION['PMP_USER_ID']);
+			$row = $this->db->resultSetAssocArray();
+			if($this->db->rowCount() > 0)
+				return $row;
+			return false;
+		} catch (\Throwable $th) {
+			return false;
+		}
+
+	}
+
+	function getAssessmentsTakenHistoryById($userId) {
+
+		try {
+			$this->db->query("SELECT att.*, a.assessment_name FROM assessments_taken att, assessments a where att.user_id=:user_id AND a.assessment_id=att.assessment_id ORDER BY date_done DESC;");
+			$this->db->bind(":user_id", $userId);
+			$row = $this->db->resultSetAssocArray();
+			if($this->db->rowCount() > 0)
+				return $row;
+			return false;
+		} catch (\Throwable $th) {
+			return false;
+		}
+
+	}
+
 	function fetchBasicAssessments() {
 
 		try {
-			$this->db->query("SELECT assessments.*, assessments_taken.assessment_t_id, assessment_category.assessment_category_name FROM assessments LEFT OUTER JOIN assessments_taken ON assessments.assessment_id=assessments_taken.assessment_id INNER JOIN assessment_category ON assessment_category.assessment_category_id=assessments.assessment_category_id AND assessment_category.assessment_category_name='agile' ORDER BY assessments.assessment_id ASC LIMIT 8;");
+			$this->db->query("SELECT assessments.*, assessments_taken.assessment_t_id, assessments_taken.date_done, assessment_category.assessment_category_name FROM assessments LEFT OUTER JOIN assessments_taken ON assessments.assessment_id=assessments_taken.assessment_id AND assessments_taken.user_id=:user_id INNER JOIN assessment_category ON assessment_category.assessment_category_id=assessments.assessment_category_id AND assessment_category.assessment_category_name='agile' ORDER BY assessments.assessment_id ASC LIMIT 8;");
+			$this->db->bind(":user_id", $_SESSION['PMP_USER_ID']);
+			$row = $this->db->resultSetAssocArray();
+			if($this->db->rowCount() > 0)
+				return $row;
+			return false;
+		} catch (\Throwable $th) {
+			return false;
+		}
+
+	}
+
+	function fetchBasicAssessmentsIds() {
+
+		try {
+			$this->db->query("SELECT assessments.assessment_id FROM assessments INNER JOIN assessment_category ON assessment_category.assessment_category_id=assessments.assessment_category_id AND assessment_category.assessment_category_name='agile' ORDER BY assessments.assessment_id ASC LIMIT 8;");
 			$row = $this->db->resultSetAssocArray();
 			if($this->db->rowCount() > 0)
 				return $row;
@@ -37,7 +111,80 @@ class Assessment {
 	function fetchStandardAssessments() {
 
 		try {
-			$this->db->query("SELECT assessments.*, assessments_taken.assessment_t_id, assessment_category.assessment_category_name FROM assessments LEFT OUTER JOIN assessments_taken ON assessments.assessment_id=assessments_taken.assessment_id INNER JOIN assessment_category ON assessment_category.assessment_category_id=assessments.assessment_category_id AND assessment_category.assessment_category_name='agile' ORDER BY assessments.assessment_id ASC LIMIT 8;");
+			$this->db->query("SELECT assessments.*, assessments_taken.assessment_t_id, assessments_taken.date_done, assessment_category.assessment_category_name FROM assessments LEFT OUTER JOIN assessments_taken ON assessments.assessment_id=assessments_taken.assessment_id AND assessments_taken.user_id=:user_id INNER JOIN assessment_category ON assessment_category.assessment_category_id=assessments.assessment_category_id AND assessment_category.assessment_category_name='agile' ORDER BY assessments.assessment_id ASC;");
+			$this->db->bind(":user_id", $_SESSION['PMP_USER_ID']);
+			$row = $this->db->resultSetAssocArray();
+			if($this->db->rowCount() > 0)
+				return $row;
+			return false;
+		} catch (\Throwable $th) {
+			return false;
+		}
+
+	}
+
+	function fetchStandardAssessmentsIds() {
+
+		try {
+			$this->db->query("SELECT assessments.assessment_id FROM assessments INNER JOIN assessment_category ON assessment_category.assessment_category_id=assessments.assessment_category_id AND assessment_category.assessment_category_name='agile' ORDER BY assessments.assessment_id ASC;");
+			$row = $this->db->resultSetAssocArray();
+			if($this->db->rowCount() > 0)
+				return $row;
+			return false;
+		} catch (\Throwable $th) {
+			return false;
+		}
+
+	}
+
+	function fetchPremiumAssessments() {
+
+		try {
+			$this->db->query("SELECT assessments.*, assessments_taken.assessment_t_id, assessments_taken.date_done, assessment_category.assessment_category_name FROM assessments LEFT OUTER JOIN assessments_taken ON assessments.assessment_id=assessments_taken.assessment_id AND assessments_taken.user_id=:user_id INNER JOIN assessment_category ON assessment_category.assessment_category_id=assessments.assessment_category_id AND assessment_category.assessment_category_name='scrum' ORDER BY assessments.assessment_id ASC;");
+			$this->db->bind(":user_id", $_SESSION['PMP_USER_ID']);
+			$row = $this->db->resultSetAssocArray();
+			if($this->db->rowCount() > 0)
+				return $row;
+			return false;
+		} catch (\Throwable $th) {
+			return false;
+		}
+
+	}
+
+	function fetchPremiumAssessmentsIds() {
+
+		try {
+			$this->db->query("SELECT assessments.assessment_id FROM assessments INNER JOIN assessment_category ON assessment_category.assessment_category_id=assessments.assessment_category_id AND assessment_category.assessment_category_name='scrum' ORDER BY assessments.assessment_id ASC;");
+			$row = $this->db->resultSetAssocArray();
+			if($this->db->rowCount() > 0)
+				return $row;
+			return false;
+		} catch (\Throwable $th) {
+			return false;
+		}
+
+	}
+
+	function fetchComprehensiveAssessments() {
+
+		try {
+			$this->db->query("SELECT assessments.*, assessments_taken.assessment_t_id, assessments_taken.date_done, assessment_category.assessment_category_name FROM assessments LEFT OUTER JOIN assessments_taken ON assessments.assessment_id=assessments_taken.assessment_id AND assessments_taken.user_id=:user_id INNER JOIN assessment_category ON assessment_category.assessment_category_id=assessments.assessment_category_id ORDER BY assessments.assessment_id ASC;");
+			$this->db->bind(":user_id", $_SESSION['PMP_USER_ID']);
+			$row = $this->db->resultSetAssocArray();
+			if($this->db->rowCount() > 0)
+				return $row;
+			return false;
+		} catch (\Throwable $th) {
+			return false;
+		}
+
+	}
+
+	function fetchComprehensiveAssessmentsIds() {
+
+		try {
+			$this->db->query("SELECT assessments.assessment_id FROM assessments INNER JOIN assessment_category ON assessment_category.assessment_category_id=assessments.assessment_category_id ORDER BY assessments.assessment_id ASC;");
 			$row = $this->db->resultSetAssocArray();
 			if($this->db->rowCount() > 0)
 				return $row;
@@ -65,7 +212,53 @@ class Assessment {
 	public function getAssessmentQuestions($assessmentId) {
 
 		try {
-			$this->db->query("SELECT q.* from questions q WHERE q.assessment_id=:assessment_id;");
+			$this->db->query("SELECT q.* from questions q WHERE q.assessment_id=:assessment_id ORDER BY q.question_id ASC;");
+			$this->db->bind(":assessment_id", $assessmentId);
+			$row = $this->db->resultSetAssocArray();
+			if($this->db->rowCount() > 0)
+				return $row;
+			return false;
+		} catch (\Throwable $th) {
+			return false;
+		}
+
+	}
+
+	public function getAssessmentQuestionsWithSectionNames($assessmentId) {
+
+		try {
+			$this->db->query("SELECT q.*,s.section_name from questions q, sections s WHERE q.assessment_id=:assessment_id and s.section_id=q.section_id ORDER BY q.question_id ASC;");
+			$this->db->bind(":assessment_id", $assessmentId);
+			$row = $this->db->resultSetAssocArray();
+			if($this->db->rowCount() > 0)
+				return $row;
+			return false;
+		} catch (\Throwable $th) {
+			return false;
+		}
+
+	}
+
+	public function getSectionsForAssessment($assessmentId) {
+
+		try {
+			$this->db->query("SELECT DISTINCT(s.section_name) from questions q, sections s WHERE q.assessment_id=1 and s.section_id=q.section_id ORDER BY q.question_id ASC;");
+			$this->db->bind(":assessment_id", $assessmentId);
+			$row = $this->db->resultSetAssocArray();
+			if($this->db->rowCount() > 0)
+				return $row;
+			return false;
+		} catch (\Throwable $th) {
+			return false;
+		}
+
+	}
+	
+
+	public function getQuestionAnswersWithIds($assessmentId) {
+
+		try {
+			$this->db->query("SELECT q.question_id, q.correct_option from questions q WHERE q.assessment_id=:assessment_id ORDER BY q.question_id ASC;");
 			$this->db->bind(":assessment_id", $assessmentId);
 			$row = $this->db->resultSetAssocArray();
 			if($this->db->rowCount() > 0)
@@ -161,6 +354,35 @@ class Assessment {
 			return 0;
 		}
 
+	}
+
+	public function add($data) {
+		try {
+			$this->db->query("INSERT INTO assessments(assessment_category_id, assessment_name) VALUES(:assessment_category_id, :assessment_name);");
+			$this->db->bind(':assessment_category_id', $data['assessmentCategoryId']);
+			$this->db->bind(':assessment_name', $data['assessmentName']);
+			if($this->db->execute())
+				return true;
+			return false;
+		} catch (\Throwable $th) {
+			return false;
+		}
+	}
+
+	public function addAssessment($assessmentId, $totalQuestions, $right, $json) {
+		try {
+			$this->db->query("INSERT INTO assessments_taken(user_id, assessment_id, totalQuestions, score, selected_answers) VALUES(:user_id, :assessment_id, :totalQuestions, :score, :selected_answers);");
+			$this->db->bind(':user_id', $_SESSION['PMP_USER_ID']);
+			$this->db->bind(':assessment_id', $assessmentId);
+			$this->db->bind(':totalQuestions', $totalQuestions);
+			$this->db->bind(':score', $right);
+			$this->db->bind(':selected_answers', json_encode($json));
+			if($this->db->execute())
+				return true;
+			return false;
+		} catch (\Throwable $th) {
+			return false;
+		}
 	}
 	
 	// function findUserByEmail($email) {

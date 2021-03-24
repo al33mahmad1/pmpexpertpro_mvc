@@ -122,6 +122,20 @@ class User {
 
 	}
 
+	public function addClient($data) {
+		try {
+			$this->db->query("INSERT INTO user(role_id, membership_id, name, email, password) VALUES(:role_id, :membership_id, :name, :email, :password);");
+			$this->db->bind(':role_id', '2');
+			$this->db->bind(':membership_id', $data['membershipId']);
+			$this->db->bind(':name', $data['name']." " . $data['surname']);
+			$this->db->bind(':email', $data['email']);
+			$this->db->bind(':password', $data['password']);
+			return ($this->db->execute());
+		} catch (\Throwable $th) {
+			return false;
+		}
+	}
+
 	// public function getUserById($id) {
 
 	// 	try {
@@ -198,19 +212,7 @@ class User {
 
 	// <----------->
 
-	// public function register($data) {
-	// 	$this->db->query("INSERT INTO users(username, email, password) VALUES(:name, :email, :password);");
-	// 	// Bind Values
-	// 	$this->db->bind(':name', $data['name']);
-	// 	$this->db->bind(':email', $data['email']);
-    //     $this->db->bind(':password', $data['password']);
-
-	// 	if($this->db->execute()) {
-	// 		return true;
-	// 	} else {
-	// 		return false;
-	// 	}
-	// }
+	
 
 	// Login User
 	 

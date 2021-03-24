@@ -238,10 +238,10 @@
           <!-- Main Row -->
           <!-- row -->
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
               <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title">Membership Table</h3>
+                  <h3 class="card-title">Assessments Taken History</h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body table-responsive  p-0"  style="height: 250px;">
@@ -249,61 +249,44 @@
                     <thead>
                       <tr>
                         <th style="width: 10px">#</th>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th style="width: 40px">Fee</th>
+                        <th>Assessment Name</th>
+                        <th>Date Accomplished</th>
+                        <th>Total Questions</th>
+                        <th>Correct Answers</th>
+                        <th style="width: 40px">Percentage</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <?php if(isset($data['membershipTable']) && $data['membershipTable']):?>
+                      <?php if(isset($data['assessmentsHistory']) && $data['assessmentsHistory']):?>
                         <?php $i = 1;?>
-                      <?php foreach ($data['membershipTable'] as $membership):?>
+                      <?php foreach ($data['assessmentsHistory'] as $assessment):?>
                       <tr>
                         <td><?=$i?></td>
-                        <td><?=ucfirst($membership['membership_name'])?></td>
-                        <td><?=$membership['description']?></td>
-                        <td><span class="badge bg-danger">$ <?=$membership['membership_fee']?></span></td>
+                        <td><?=ucfirst($assessment['assessment_name'])?></td>
+                        <td><?=timeStampToFormattedDateWithTime($assessment['date_done'])?></td>
+                        <td><?=$assessment['totalQuestions']?></td>
+                        <td><?=$assessment['score']?></td>
+                        <?php
+                          $per = ((int)($assessment['totalQuestions']) > 0)?(( 100 / (int)($assessment['totalQuestions'])) * (int)($assessment['score'])) : 0;
+                        ?>
+                        <?php if($per <= 0):?>
+                          <td><span class="badge bg-danger"><?php echo $per;?> %</span></td>
+                        <?php elseif($per > 0 && $per < 25):?>
+                          <td><span class="badge bg-warning"><?php echo $per;?> %</span></td>
+                        <?php elseif($per >= 25 && $per < 50):?>
+                          <td><span class="badge bg-info"><?php echo $per;?> %</span></td>
+                        <?php elseif($per >= 50 && $per < 75):?>
+                          <td><span class="badge bg-info"><?php echo $per;?> %</span></td>
+                        <?php elseif($per >= 75 && $per <= 100):?>
+                          <td><span class="badge bg-success"><?php echo $per;?> %</span></td>
+                        <?php endif;?>
                       </tr>
                       <?php $i++;?>
                       <?php endforeach;?>
-                      <?php endif;?>
-                    </tbody>
-
-                  </table>
-                </div>
-                <!-- /.card-body -->
-              </div>
-              <!-- /.card -->
-            </div>
-
-            <div class="col-md-6">
-              <div class="card">
-                <div class="card-header">
-                  <h3 class="card-title">Assessments Table</h3>
-                </div>
-                <!-- /.card-header -->
-                <div class="card-body table-responsive  p-0"  style="height: 250px;">
-                  <table class="table table-striped text-sm table-head-fixed text-nowrap">
-                    <thead>
-                      <tr>
-                        <th style="width: 10px">#</th>
-                        <th>Name</th>
-                        <th>Category Name</th>
-                        <th style="width: 40px">Questions Count</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <?php if(isset($data['assessmentsTable']) && $data['assessmentsTable']):?>
-                        <?php $i = 1;?>
-                      <?php foreach ($data['assessmentsTable'] as $membership):?>
-                      <tr>
-                        <td><?=$i?></td>
-                        <td><?=ucfirst($membership['assessment_name'])?></td>
-                        <td><?=ucfirst($membership['assessment_category_name'])?></td>
-                        <td class="text-center"><?=$membership['question_count']?></td>
-                      </tr>
-                      <?php $i++;?>
-                      <?php endforeach;?>
+                      <?php else:?>
+                        <tr>
+                            <td colspan="6" style="color:red;">No Exams taken yet.</td>
+                        </tr>
                       <?php endif;?>
                     </tbody>
 

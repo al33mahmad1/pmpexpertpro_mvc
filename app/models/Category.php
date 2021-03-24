@@ -6,6 +6,34 @@ class Category {
 		$this->db = new Database();
 	}
 
+	function fetchAll() {
+
+		try {
+			$this->db->query("SELECT * FROM assessment_category;");
+			$row = $this->db->resultSetAssocArray();
+			if($this->db->rowCount() > 0)
+				return $row;
+			return false;
+		} catch (\Throwable $th) {
+			return false;
+		}
+
+	}
+
+	function isCategoryAvailable($id) {
+
+		try {
+			$this->db->query("SELECT * FROM assessment_category where assessment_category_id=:id;");
+			$this->db->bind(":id", $id);
+			$row = $this->db->single();
+			return ($this->db->rowCount() > 0);
+		} catch (\Throwable $th) {
+			diee($th);
+			return false;
+		}
+
+	}
+
 	public function totalQuestionInAgileCategory() {
 
 		try {

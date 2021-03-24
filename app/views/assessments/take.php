@@ -1,8 +1,4 @@
 <!DOCTYPE html>
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
--->
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -50,7 +46,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </div>
     <!-- /.content-header -->
 
-
     <!-- Main content -->
     <div class="content">
       <div class="container">
@@ -58,20 +53,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <?php if(isset($data['assessment']) && $data['assessment']):?>
                 <?php $i = 1;?>
                 <form action="javascript:void(0)">
+                <!-- <form action="<?=URLROOT?>/assessments/results" method="post"> -->
 
                 <?php foreach ($data['assessment'] as $assessment):?>
                     <div class="col-lg-12">
                         <div class="card card-dark elevation-2" style="border-left: 3px solid #343a40;">
                         <div class="card-body">
-                            <p class="card-text">
-                            Q<?=$i?>. <?=$assessment['question']?>
-                            </p>
+                            <p class="card-text">Q<?=$i?>. <?=$assessment['question']?></p>
 
                             <dl class="row">
-                                <dd class="col-sm-12"><input type="radio" name="question_<?=$assessment['question_id']?>" value="a"> <b style="font-size:18px;">A.</b> <?=$assessment['a']?></dd>
-                                <dd class="col-sm-12"><input type="radio" name="question_<?=$assessment['question_id']?>" value="b"> <b style="font-size:18px;">B.</b> <?=$assessment['b']?></dd>
-                                <dd class="col-sm-12"><input type="radio" name="question_<?=$assessment['question_id']?>" value="c"> <b style="font-size:18px;">C.</b> <?=$assessment['c']?></dd>
-                                <dd class="col-sm-12"><input type="radio" name="question_<?=$assessment['question_id']?>" value="d"> <b style="font-size:18px;">D.</b> <?=$assessment['d']?></dd>
+                                <dd class="col-sm-12"><input type="radio" name="question_<?=$assessment['question_id']?>" data-question-tag="question_<?=$assessment['question_id']?>" value="a"> <b style="font-size:18px;">A.</b> <?=$assessment['a']?></dd>
+                                <dd class="col-sm-12"><input type="radio" name="question_<?=$assessment['question_id']?>" data-question-tag="question_<?=$assessment['question_id']?>" value="b"> <b style="font-size:18px;">B.</b> <?=$assessment['b']?></dd>
+                                <dd class="col-sm-12"><input type="radio" name="question_<?=$assessment['question_id']?>" data-question-tag="question_<?=$assessment['question_id']?>" value="c"> <b style="font-size:18px;">C.</b> <?=$assessment['c']?></dd>
+                                <dd class="col-sm-12"><input type="radio" name="question_<?=$assessment['question_id']?>" data-question-tag="question_<?=$assessment['question_id']?>" value="d"> <b style="font-size:18px;">D.</b> <?=$assessment['d']?></dd>
                             </dl>
                             
                         </div>
@@ -82,8 +76,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <?php endforeach;?>
             
             <div class="col-md-12">
-                <input type="hidden" name="hiddenAssessmentId" value="<?=$data['assessmentId']?>">
-                <input type="hidden" name="totalQuestions" value="<?=--$i?>">
+                <input type="hidden" name="hiddenAssessmentId" id="hiddenAssessmentId" value="<?=$data['assessmentId']?>">
+                <input type="hidden" name="totalQuestions" id="totalQuestions" value="<?=--$i?>">
+                <input type="hidden" name="urlroot" id="urlroot" value="<?=URLROOT?>">
                 <button id="submit_test" class="btn btn-dark elevation-2">Submit Assignment</button>
             </div>
 

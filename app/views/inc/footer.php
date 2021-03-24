@@ -22,6 +22,13 @@
 </script>
 <!-- Bootstrap 4 -->
 <script src="<?=URLROOT?>/public/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- DataTables  & Plugins -->
+<script src="<?=URLROOT?>/public/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="<?=URLROOT?>/public/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="<?=URLROOT?>/public/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="<?=URLROOT?>/public/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="<?=URLROOT?>/public/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<script src="<?=URLROOT?>/public/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
 <!-- ChartJS -->
 <script src="<?=URLROOT?>/public/plugins/chart.js/Chart.min.js"></script>
 <!-- Sparkline -->
@@ -46,5 +53,8 @@
 <script src="<?=URLROOT?>/public/dist/js/demo.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="<?=URLROOT?>/public/dist/js/pages/dashboard.js"></script>
+<!-- Global JS Script -->
+<script src="<?=URLROOT?>/public/js/global/global.js"></script>
+
 </body>
 </html>

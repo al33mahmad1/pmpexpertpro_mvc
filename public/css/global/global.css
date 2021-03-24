@@ -1,0 +1,25 @@
+.font-poppins {
+    font-family: 'Poppins', sans-serif;
+}
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
+}
+
+.p-error {
+    font-size: 12px;
+    line-height: 0px;
+    color: red;
+}
+
+td.details-control {
+    background: url('../../img/datatable/do.png') no-repeat center center;
+    cursor: pointer;
+}
+tr.shown td.details-control {
+    background: url('../../img/datatable/dc.png') no-repeat center center;
+}

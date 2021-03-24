@@ -4,7 +4,7 @@
 		public function __construct() {
 
 			$this->userModel = $this->model('User');
-			$this->LoginlogsModel = $this->model('Loginlogs');
+			$this->LoginlogsModel = $this->model('Loginlog');
 
 		}
 
@@ -18,11 +18,6 @@
 		public function login() {
 			$data = [];
 			$this->view("users/login", $data);
-		}
-
-        public function register() {
-			$data = [];
-			$this->view("users/register", $data);
 		}
 
 		public function validate() {
@@ -181,6 +176,54 @@
 				echo json_encode(["status" => "404", "message" => "Invalid Route"]);
 		}
 
+		public function addClient() {
+			if($_SERVER['REQUEST_METHOD'] == 'POST' ) {
+				try {
+					$_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+					$data = [
+						'name' => trim($_POST['data']['name']),
+						'surname' => trim($_POST['data']['surname']),
+						'email' => trim($_POST['data']['email']),
+						'amount' => trim($_POST['data']['amount']),
+						'membershipType' => trim($_POST['data']['membershipType']),
+						'secret' => trim($_POST['data']['secret'])
+					];
+
+					switch ($data['membershipType']) {
+						case BASIC:
+							$data['membershipId'] = '1';
+							break;
+						case STANDARD:
+							$data['membershipId'] = '2';
+							break;
+						case PREMIUM:
+							$data['membershipId'] = '3';
+							break;
+						case COMPREHENSIVE:
+							$data['membershipId'] = '4';
+							break;
+						default:
+							$data['membershipId'] = "";
+							break;
+					}
+
+					if($data['secret'] == PAYMENT_SECRET && !empty($data['membershipId'])) {
+						$data['tempPwd'] = generateRandomString(10);
+						$data['password'] = password_hash($data['tempPwd'], PASSWORD_DEFAULT);
+	
+						$this->userModel->addClient($data);
+						senEmail($data['email'], $data['tempPwd']);
+						echo json_encode(["status"=> "success"]);
+					} else
+						echo json_encode(["status"=> "402", "message"=> "You are not authorized to access this endpoint!"]);
+
+				} catch (\Throwable $th) {
+					echo json_encode(["status"=> "exc", "message"=> "You are not authorized to access this endpoint!"]);
+				}
+			} else
+				echo json_encode(["status"=> "404", "message"=> "Invalid request method!"]);
+		}
+
 		// <--------------->
 
 		// public function add() {
@@ -283,92 +326,7 @@
 		// }
 
 
-		// public function register() {
-		// 	redirect("pages/index");
-		// 	// Check if post request
-		// 	if($_SERVER['REQUEST_METHOD'] == 'POST' ){
-
-		// 		// Sanitize Post Data
-		// 		$_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-
-		// 		// init data 
-		// 		$data = [
-		// 			'name' => trim($_POST['name']),
-		// 			'email' => trim($_POST['email']),
-		// 			'password' => trim($_POST['password']),
-		// 			'confirm_password' => trim($_POST['confirm_password']),
-		// 			'name_err' => '',
-		// 			'email_err' => '',
-		// 			'password_err' => '',
-		// 			'confirm_password_err' => ''
-		// 		];
-
-		// 		// Validating Form Data
-
-		// 		// Validate Email
-		// 		if(empty($data['email'])){
-		// 			$data['email_err'] = "Please enter email";
-		// 		} else{
-		// 			if($this->userModel->findUserByEmail($data['email']))
-		// 				$data['email_err'] = "Email Already Taken";
-		// 			// die("Taken");
-		// 		}
-
-		// 		// Validate Name
-		// 		if(empty($data['name'])){
-		// 			$data['name_err'] = "Please enter name";
-		// 		}
-
-		// 		// Validate Password
-		// 		if(empty($data['password'])){
-		// 			$data['password_err'] = "Please enter Password";
-		// 		} elseif(strlen($data['password']) < 6){
-		// 			$data['password_err'] = "Password must be at least 6 characters";
-		// 		}
-
-		// 		// Validate Confirm Password
-		// 		if(empty($data['confirm_password'])){
-		// 			$data['confirm_password_err'] = "Please enter Confirm Password";
-		// 		} else {
-		// 			if($data['password'] != $data['confirm_password'])
-		// 				$data['confirm_password_err'] = "Password must match";
-		// 		}
-
-		// 		// Make sure that not any error
-		// 		if(empty($data['name_err']) && empty($data['email_err']) && empty($data['password_err']) && empty($data['confirm_password_err'])) {
-		// 			// Validated
-
-		// 			// Hash Password
-		// 			$data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
-
-		// 			// Register
-		// 			if($this->userModel->register($data)) {
-		// 				flash('register_success', 'Registered Successfully! Now you can Login');
-		// 				redirect("users/login");
-		// 			} else {
-		// 				die("SOmething went Wrong");
-		// 			}
-		// 		} else {
-		// 			$this->view("users/register", $data);
-		// 		}
-
-		// 	} else {
-		// 		// Load Form
-		// 		$data = [
-		// 			'name' => '',
-		// 			'email' => '',
-		// 			'password' => '',
-		// 			'confirm_password' => '',
-		// 			'name_err' => '',
-		// 			'email_err' => '',
-		// 			'password_err' => '',
-		// 			'confirm_password_err' => ''
-		// 		];
-		// 		// Load View
-		// 		$this->view('users/register', $data);
-		// 	}
-		// }
-
+		
 		// public function validate() {
 		// 	// Check if post request
 		// 	if($_SERVER['REQUEST_METHOD'] == 'POST' ) {

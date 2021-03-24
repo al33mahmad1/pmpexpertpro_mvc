@@ -1,5 +1,5 @@
 <?php
-class Loginlog {
+class Testlog {
 	private $db;
 
 	public function __construct() {
