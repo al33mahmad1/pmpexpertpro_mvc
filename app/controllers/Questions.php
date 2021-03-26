@@ -88,7 +88,7 @@
 
 					if(empty($data['assessmentId']) || !$this->assessmentModel->isAssessmentAvailable($data['assessmentId'])) {
 						$data['status'] = "error";
-						$data['assessmentIdErr'] = "Valid assessment selected required!";
+						$data['assessmentIdErr'] = "Valid exam selected required!";
 					}
 
 					if(empty($data['sectionId']) || !$this->sectionModel->isSectionAvailable($data['sectionId'])) {
@@ -226,7 +226,7 @@
 
 					if(empty($data['assessmentId']) || !$this->assessmentModel->isAssessmentAvailable($data['assessmentId'])) {
 						$data['status'] = "error";
-						$data['assessmentIdErr'] = "Valid assessment selected required!";
+						$data['assessmentIdErr'] = "Valid exam selected required!";
 					}
 
 					if(empty($data['sectionId']) || !$this->sectionModel->isSectionAvailable($data['sectionId'])) {

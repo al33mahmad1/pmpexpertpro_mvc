@@ -344,7 +344,7 @@ class Assessment {
 	public function getAccomplishedAssessmentsCount() {
 
 		try {
-			$this->db->query("SELECT count(a.assessment_t_id) assessmentsCount from assessments_taken a WHERE a.user_id =:id;");
+			$this->db->query("SELECT count(DISTINCT(a.assessment_id)) assessmentsCount from assessments_taken a WHERE a.user_id =:id;");
 			$this->db->bind(":id", $_SESSION['PMP_USER_ID']);
 			$row = $this->db->single();
 			if($this->db->rowCount() > 0)

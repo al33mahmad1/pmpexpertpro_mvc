@@ -34,7 +34,7 @@
               <div class="inner">
                 <h3><?=$data['totalAssessmentsInSystem']?></h3>
 
-                <p>Total Assessments In system</p>
+                <p>Total Exams In system</p>
               </div>
               <div class="icon">
                 <i class="ion ion-plus"></i>
@@ -135,7 +135,7 @@
           <div class="col-md-6">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Assessments Table</h3>
+                <h3 class="card-title">Exams Table</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive  p-0"  style="height: 250px;">
@@ -196,7 +196,7 @@
                 <div class="inner">
                   <h3><?=$data['yourAssessments']?></h3>
 
-                  <p><?=ucfirst($_SESSION['PMP_USER_MEMBERSHIP'])?> Assessments</p>
+                  <p><?=ucfirst($_SESSION['PMP_USER_MEMBERSHIP'])?> Exams</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-person-add"></i>
@@ -212,7 +212,7 @@
                 <div class="inner">
                   <h3><?=$data['totalAssessmentsPending']?></h3>
 
-                  <p>Assessments Pending</p>
+                  <p>Exams Pending</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-happy"></i>
@@ -225,7 +225,7 @@
                 <div class="inner">
                   <h3><?=$data['totalAssessmentsAccomplished']?></h3>
 
-                  <p>Assessments Accomplished</p>
+                  <p>Exams Accomplished</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-calendar"></i>
@@ -241,7 +241,7 @@
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title">Assessments Taken History</h3>
+                  <h3 class="card-title">Exams Taken History</h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body table-responsive  p-0"  style="height: 250px;">
@@ -249,7 +249,7 @@
                     <thead>
                       <tr>
                         <th style="width: 10px">#</th>
-                        <th>Assessment Name</th>
+                        <th>Exam Name</th>
                         <th>Date Accomplished</th>
                         <th>Total Questions</th>
                         <th>Correct Answers</th>

@@ -47,7 +47,8 @@
 				if($data['status'] === false) {
 					if($loggedIn = $this->userModel->login($data['email'], $data['password'])) {
 
-                        $this->createUserSession($loggedIn);
+                        // $this->createUserSession($loggedIn);
+                        createUserSession($loggedIn);
                         $data['status'] = "success";
 						$this->LoginlogsModel->add();
 						
@@ -66,17 +67,6 @@
 
 		}
 
-		public function createUserSession($user) {
-
-			$_SESSION['PMP_USER_ID'] = $user->id;
-			$_SESSION['PMP_USER_NAME'] = $user->name;
-			$_SESSION['PMP_USER_EMAIL'] = $user->email;
-			$_SESSION['PMP_USER_ROLE'] = strtolower($user->roleType);
-			$_SESSION['PMP_USER_MEMBERSHIP'] = strtolower($user->membership);
-			$_SESSION['PMP_LAST_ACTIVITY'] = time();
-
-		}
-
 		public function logout() {
 
 			unset($_SESSION['PMP_USER_ID']);
@@ -85,6 +75,8 @@
 			unset($_SESSION['PMP_USER_ROLE']);
 			unset($_SESSION['PMP_USER_MEMBERSHIP']);
 			unset($_SESSION['PMP_LAST_ACTIVITY']);
+			unset($_SESSION['PMP_EXAM_StARTED']);
+			unset($_SESSION['PMP_EXAM_STARTED_ID']);
 			session_unset();
       		session_destroy();
 			redirect('users/login');
@@ -222,6 +214,151 @@
 				}
 			} else
 				echo json_encode(["status"=> "404", "message"=> "Invalid request method!"]);
+		}
+
+		public function forgotPassword() {
+			if(isLoggedIn()) 
+				redirect("pages/home");
+
+			$data = [
+				'email' => '',
+				'err' => ''
+			];
+			$this->view('users/forgotPassword', $data);
+		}
+
+		public function validateIsUserAvailable() {
+
+			if($_SERVER['REQUEST_METHOD'] == 'POST' ) {
+
+				$_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+				$data = [
+					'email' => trim($_POST['email'])
+				];
+
+				if(!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+					echo json_encode(['status' => "invalidEmail", "message" => "Invalid email address!"]);
+					return;
+				}
+
+				if($this->userModel->validateIsUserAvailable($data['email'])) {
+					echo json_encode(['status' => "success", "message" => "Yes! valid email address."]);
+				} else {
+					echo json_encode(['status' => "success", "message" => "Invalid email address!"]);
+				}
+
+			} else
+				echo json_encode(['status' => "404", "message" => "Invalid Route"]);
+			
+		}
+
+		public function validatePasswordAndSendOTP() { // Tested
+
+			if($_SERVER['REQUEST_METHOD'] == 'POST' ) {
+
+				$_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+				$data = [
+					'email' => trim($_POST['email']),
+					'password' => trim($_POST['password']),
+					'confirm_password' => trim($_POST['confirm_password'])
+				];
+
+				if(!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+					echo json_encode(['status' => "invalidEmail", "message" => "Invalid email address!"]);
+					return;
+				}
+
+				if($this->userModel->validateIsUserAvailable($data['email'])) {
+
+					if(isValidatePassword($data['password'])) {
+						if($data['password'] === $data['confirm_password']) {
+							$OTP = generateOTP(4);
+							if($this->userModel->updatePasswordResetStatus($data['email'], $OTP))	{
+								if(sendEmailPHP($data['email'], $OTP))
+									echo json_encode(['status' => "success", "message" => "OTP Sent!."]);
+								else
+									echo json_encode(['status' => "success", "message" => "email function error."]);
+							} else
+								echo json_encode(['status' => "DBException", "message" => "DB Exception on changing password reset status."]);
+
+						} else
+							echo json_encode(['status' => "invalidMismatch", "message" => "Passwords Mismatch!"]);
+
+					} else 
+						echo json_encode(['status' => "invalid", "message" => "Invalid new password!."]);
+
+				} else
+					echo json_encode(['status' => "success", "message" => "Invalid email address!"]);
+
+			} else {
+				echo json_encode(['status' => "404", "message" => "Invalid Route"]);
+			}
+		}
+
+		public function changePasswordWithOTP() { // Tested
+
+			if($_SERVER['REQUEST_METHOD'] == 'POST' ) {
+
+				$_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+				$data = [
+					'email' => trim($_POST['email']),
+					'password' => trim($_POST['password']),
+					'confirm_password' => trim($_POST['confirm_password']),
+					'OTP' => trim($_POST['OTP'])
+				];
+
+				if(!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+					echo json_encode(['status' => "invalidEmail", "message" => "Invalid email address!"]);
+					return;
+				}
+
+				if($this->userModel->validateIsUserAvailable($data['email'])) {
+
+					if(isValidatePassword($data['password'])) {
+						if($data['password'] === $data['confirm_password']) {
+							if(strlen($data['OTP']) === 4) {
+								if($dataToValidate = $this->userModel->getOTPAndData($data['email'])) {
+									if(getBool($dataToValidate['is_set_for_pass_resetting'])) {
+										if($dataToValidate['pass_reset_code'] === $data['OTP']) {
+											// Check if code was sent more than 10 minutes or not
+											$nowTime = strtotime(date("Y-m-d H:i:s"));
+											$thenTime = strtotime($dataToValidate['pwd_reset_date']);
+											$minutes = ($nowTime - $thenTime)/60;
+											if($minutes <= OTP_TIME) {
+												$data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+												if($this->userModel->updatePassword($data['email'], $data['password']))
+													echo json_encode(['status' => "success", "message" => "Password Changed, got to login page."]);
+												else
+													echo json_encode(['status' => "DBException", "message" => "Everything is OK, but On Password change DB Exception."]);
+											} else
+												echo json_encode(['status' => "OTPTimeOut", "message" => "OTP Time Out, request again!"]);
+										} else
+											echo json_encode(['status' => "OTPMismatch", "message" => "OTP Mismatch."]);
+										
+									} else 
+										echo json_encode(['status' => "passwordResetNotRequested", "message" => "Password Reset Not Requested!."]);
+									
+								} else
+									echo json_encode(['status' => "DBException", "message" => "DB Exception on getting data to validate if password reset requested or not."]);
+								
+							} else
+								echo json_encode(['status' => "otpInvalid", "message" => "Invalid OTP By Length"]);
+
+						} else
+							echo json_encode(['status' => "invalidMismatch", "message" => "Passwords Mismatch!"]);
+
+					} else 
+						echo json_encode(['status' => "invalid", "message" => "Invalid new password!."]);
+
+				} else
+					echo json_encode(['status' => "invalidEmail", "message" => "Invalid email address!"]);
+
+			} else {
+				echo json_encode(['status' => "404", "message" => "Invalid Route"]);
+			}
 		}
 
 		// <--------------->

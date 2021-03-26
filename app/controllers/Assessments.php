@@ -48,9 +48,13 @@
 
 			if(!isLoggedIn())
 				redirect("users/login");
+			
+			if(isExamStarted() && $assessmentId != $_SESSION['PMP_EXAM_STARTED_ID']) {
+				redirect("assessments/take/".$_SESSION['PMP_EXAM_STARTED_ID']);
+			}
 
 			if(!is_numeric($assessmentId)) {
-				flash('error', "Invalid assessment selected!");
+				flash('error', "Invalid exam selected!");
 				redirect("assessments/list");
 			}
 			
@@ -86,7 +90,7 @@
 			}
 
 			if(!containsId($assessmentId, $ids)) {
-				flash('error', "Sorry, you not have access to this assessment!", "alert alert-danger");
+				flash('error', "Sorry, you not have access to this exam!", "alert alert-danger");
 				redirect("assessments/list");
 			}
 
@@ -94,8 +98,9 @@
 				$data['assessment'] = $temp;
 				$data['assessmentName'] = $this->assessmentModel->getAssessmentName($data['assessmentId']);
 				$data['title'] .= $data['assessmentName'];
+				startExam($data['assessmentId']);
 			} else {
-				flash('error', "Invalid assessment selected!");
+				flash('error', "Invalid exam selected!");
 				redirect("assessments/list");
 			}
 
@@ -125,12 +130,12 @@
 
 					if(empty($data['assessmentName'])) {
 						$data['status'] = "error";
-						$data['assessmentNameErr'] = "Valid assessment name required!";
+						$data['assessmentNameErr'] = "Valid exam name required!";
 					}
 
 					if(empty($data['assessmentCategoryId'])) {
 						$data['status'] = "error";
-						$data['assessmentCategoryErr'] = "Invalid Assessment Category selected!";
+						$data['assessmentCategoryErr'] = "Invalid exam Category selected!";
 					}
 					if(!$this->categoryModel->isCategoryAvailable($data['assessmentCategoryId'])) {
 						$data['status'] = "error";
@@ -221,7 +226,7 @@
 			if(!isLoggedIn())
 				redirect("users/logout");
 			else if($assessmentId == null ) { 
-				flash("error", "Please select valid assessment!", "alert alert-danger");
+				flash("error", "Please select valid exam!", "alert alert-danger");
 				redirect("assessments/list");
 			} else {
 
@@ -259,7 +264,7 @@
 				}
 	
 				if(!containsId($data['assessmentId'], $ids)) {
-					flash('error', "Sorry, you are not allowed to access this assessment results!", "alert alert-danger");
+					flash('error', "Sorry, you are not allowed to access this exam results!", "alert alert-danger");
 					redirect("assessments/list");
 				}
 
@@ -277,7 +282,7 @@
 					}
 
 				} else {
-					flash('error', "You have not yet taken this assessment!", "alert alert-warning");
+					flash('error', "You have not yet taken this exam!", "alert alert-warning");
 					redirect("assessments/list");
 				}
 			
@@ -326,7 +331,7 @@
 					}
 		
 					if(!containsId($data['assessmentId'], $ids)) {
-						flash('error', "Sorry, you are not allowed to access this assessment!", "alert alert-danger");
+						flash('error', "Sorry, you are not allowed to access this exam!", "alert alert-danger");
 						echo json_encode(["status"=> "notHaveAccessToThisAssessment"]);
 						exit;
 					}
@@ -344,9 +349,10 @@
 								$data['wrong']++;
 						}
 
-						if($this->assessmentModel->addAssessment($data['assessmentId'], $data['totalQuestions'], $data['right'], $data['json']))
+						if($this->assessmentModel->addAssessment($data['assessmentId'], $data['totalQuestions'], $data['right'], $data['json'])) {
+							endExam();
 							$data['status'] = "success";
-						else {
+						} else {
 							flash('error', "Something unexpected happened, please try again after refresh!", "alert alert-danger");
 							$data['status'] = "somethingUnexpectedHappened";
 						}

@@ -136,6 +136,69 @@ class User {
 		}
 	}
 
+	public function validateIsUserAvailable($email) {
+
+		try {
+			$this->db->query("SELECT id from user WHERE email=:email;");
+			$this->db->bind(":email", $email);
+			$row = $this->db->singleAssoc();
+			
+			return ($this->db->rowCount() > 0);
+		} catch (\Throwable $th) {
+			return false;
+		}
+
+	}
+
+	public function getOTPAndData($email) {
+		
+		try {
+			$this->db->query("SELECT is_set_for_pass_resetting, pass_reset_code, pwd_reset_date FROM  `user` WHERE email=:email;");
+			$this->db->bind(':email', $email);
+			$row = $this->db->singleAssoc();
+
+			if($this->db->rowCount() > 0)
+				return $row;
+			return false;
+		} catch (\Throwable $th) {
+			return false;
+		}
+
+	}
+
+	public function updatePasswordResetStatus($email, $OTP) { // *
+		
+		try {
+			$this->db->query("UPDATE `user` SET `is_set_for_pass_resetting`=:is_set_for_pass_resetting, pass_reset_code=:pass_reset_code, pwd_reset_date=:pwd_reset_date WHERE email=:email;");
+		
+			$this->db->bind(':email', $email);
+			$this->db->bind(':is_set_for_pass_resetting', 1);
+			$this->db->bind(':pass_reset_code', $OTP);
+			$this->db->bind(':pwd_reset_date', date("Y-m-d H:i:s"));
+			
+			return ($this->db->execute());
+		} catch (\Throwable $th) {
+			return false;
+		}
+
+	}
+
+	public function updatePassword($email, $password) { // *
+		
+		try {
+			$this->db->query("UPDATE `user` SET `password`=:password, `is_set_for_pass_resetting`=:is_set_for_pass_resetting, pass_reset_code=:pass_reset_code WHERE email=:email;");
+			$this->db->bind(':password', $password);
+			$this->db->bind(':email', $email);
+			$this->db->bind(':is_set_for_pass_resetting', "0");
+			$this->db->bind(':pass_reset_code', "0000");
+			
+			return $this->db->execute();
+		} catch (\Throwable $th) {
+			return false;
+		}
+
+	}
+
 	// public function getUserById($id) {
 
 	// 	try {

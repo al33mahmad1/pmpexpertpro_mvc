@@ -53,7 +53,7 @@
                     <!-- Assess ID Select -->
                     <div class="col-md-6">
                         <!-- Country -->
-                        <label for="assessment_id" class="assessment_id">Select Assessment*</label>
+                        <label for="assessment_id" class="assessment_id">Select Exam*</label>
                         <div class="input-group">
                             <select id="assessment_id" class="form-control select2bs4">
                                 <?php if(isset($data['assessments']) && $data['assessments']):?>

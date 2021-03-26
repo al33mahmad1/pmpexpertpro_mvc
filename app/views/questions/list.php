@@ -136,9 +136,9 @@
     `                          </div>`+
     `                          <div class="col-md-6">`+
     `                            <dl class="row">`+
-    `                                <dt class="col-sm-3">Assessment Name</dt>`+
+    `                                <dt class="col-sm-3">Exam Name</dt>`+
     `                                <dd class="col-sm-9">${assessment_name}</dd>`+
-    `                                <dt class="col-sm-3">Assessment Category</dt>`+
+    `                                <dt class="col-sm-3">Exam Category</dt>`+
     `                                <dd class="col-sm-9">${assessment_category_name}</dd>`+
     `                                <dt class="col-sm-3">Section Name</dt>`+
     `                                <dd class="col-sm-9">${section_name}</dd>`+

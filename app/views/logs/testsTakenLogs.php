@@ -9,12 +9,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Assessments Taken Logs</h1>
+            <h1 class="m-0">Exams Taken Logs</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Assessments Logs</li>
+              <li class="breadcrumb-item active">Exams Logs</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -43,7 +43,7 @@
                     <thead>
                       <tr>
                         <th style="width: 10px">#</th>
-                        <th>Assessment Name</th>
+                        <th>Exam Name</th>
                         <th>Date Accomplished</th>
                         <th>Total Questions</th>
                         <th>Correct Answers</th>

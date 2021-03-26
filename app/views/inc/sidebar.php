@@ -42,9 +42,9 @@
 
           <li class="nav-item">
             <a href="<?=URLROOT?>/assessments/list" class="nav-link">
-              <i class="nav-icon fas fa-list"></i>
+              <i class="nav-icon fas fa-user-graduate"></i>
               <p>
-                Assessments
+                Exams
               </p>
             </a>
           </li>
@@ -52,7 +52,7 @@
           <?php if(isAdmin()):?>
           <li class="nav-item">
             <a href="<?=URLROOT?>/questions/list" class="nav-link">
-              <i class="nav-icon fas fa-question"></i>
+              <i class="nav-icon fas fa-graduation-cap"></i>
               <p>
                 Questions
               </p>

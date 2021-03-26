@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 24, 2021 at 09:23 PM
+-- Generation Time: Mar 26, 2021 at 12:53 PM
 -- Server version: 10.3.16-MariaDB
 -- PHP Version: 7.3.27
 
@@ -79,30 +79,6 @@ CREATE TABLE `assessments_taken` (
   `date_done` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `assessments_taken`
---
-
-INSERT INTO `assessments_taken` (`assessment_t_id`, `user_id`, `assessment_id`, `totalQuestions`, `score`, `selected_answers`, `date_done`) VALUES
-(2, 1, 18, 16, 0, '{\"327\":\"none\",\"328\":\"none\",\"329\":\"none\",\"330\":\"none\",\"331\":\"none\",\"332\":\"none\",\"333\":\"none\",\"334\":\"none\",\"335\":\"none\",\"336\":\"none\",\"337\":\"none\",\"338\":\"none\",\"339\":\"none\",\"340\":\"none\",\"341\":\"none\",\"342\":\"none\"}', '2021-03-21 20:16:46'),
-(3, 1, 1, 20, 0, '{\"1\":\"none\",\"2\":\"none\",\"3\":\"none\",\"32\":\"none\",\"59\":\"none\",\"65\":\"none\",\"74\":\"none\",\"110\":\"none\",\"127\":\"none\",\"172\":\"none\",\"183\":\"none\",\"198\":\"none\",\"205\":\"none\",\"208\":\"none\",\"227\":\"none\",\"233\":\"none\",\"235\":\"none\",\"236\":\"none\",\"246\":\"none\",\"256\":\"none\"}', '2021-03-21 20:18:27'),
-(4, 1, 2, 20, 0, '{\"7\":\"none\",\"26\":\"none\",\"27\":\"none\",\"42\":\"none\",\"48\":\"none\",\"49\":\"none\",\"57\":\"none\",\"104\":\"none\",\"107\":\"none\",\"109\":\"none\",\"112\":\"none\",\"116\":\"none\",\"143\":\"none\",\"185\":\"none\",\"191\":\"none\",\"193\":\"none\",\"196\":\"none\",\"197\":\"none\",\"203\":\"none\",\"218\":\"none\"}', '2021-03-21 20:28:02'),
-(5, 1, 18, 16, 0, '{\"327\":\"none\",\"328\":\"none\",\"329\":\"none\",\"330\":\"none\",\"331\":\"none\",\"332\":\"none\",\"333\":\"none\",\"334\":\"none\",\"335\":\"none\",\"336\":\"none\",\"337\":\"none\",\"338\":\"none\",\"339\":\"none\",\"340\":\"none\",\"341\":\"none\",\"342\":\"none\"}', '2021-03-14 20:38:45'),
-(6, 1, 3, 20, 0, '{\"4\":\"none\",\"12\":\"none\",\"33\":\"none\",\"43\":\"none\",\"47\":\"none\",\"66\":\"none\",\"75\":\"none\",\"81\":\"none\",\"93\":\"none\",\"115\":\"none\",\"117\":\"none\",\"118\":\"none\",\"129\":\"none\",\"182\":\"none\",\"184\":\"none\",\"190\":\"none\",\"202\":\"none\",\"206\":\"none\",\"221\":\"none\",\"244\":\"none\"}', '2021-03-21 22:22:20'),
-(7, 1, 3, 20, 2, '{\"4\":\"a\",\"12\":\"c\",\"33\":\"none\",\"43\":\"none\",\"47\":\"none\",\"66\":\"none\",\"75\":\"none\",\"81\":\"none\",\"93\":\"none\",\"115\":\"none\",\"117\":\"none\",\"118\":\"none\",\"129\":\"none\",\"182\":\"none\",\"184\":\"none\",\"190\":\"none\",\"202\":\"none\",\"206\":\"none\",\"221\":\"none\",\"244\":\"none\"}', '2021-03-21 22:35:03'),
-(8, 1, 3, 20, 1, '{\"4\":\"b\",\"12\":\"c\",\"33\":\"none\",\"43\":\"none\",\"47\":\"none\",\"66\":\"none\",\"75\":\"none\",\"81\":\"none\",\"93\":\"none\",\"115\":\"none\",\"117\":\"none\",\"118\":\"none\",\"129\":\"none\",\"182\":\"none\",\"184\":\"none\",\"190\":\"none\",\"202\":\"none\",\"206\":\"none\",\"221\":\"none\",\"244\":\"c\"}', '2021-03-21 22:36:01'),
-(9, 2, 1, 20, 0, '{\"1\":\"a\",\"2\":\"b\",\"3\":\"a\",\"32\":\"c\",\"59\":\"none\",\"65\":\"none\",\"74\":\"b\",\"110\":\"none\",\"127\":\"none\",\"172\":\"none\",\"183\":\"none\",\"198\":\"none\",\"205\":\"none\",\"208\":\"none\",\"227\":\"none\",\"233\":\"none\",\"235\":\"none\",\"236\":\"none\",\"246\":\"none\",\"256\":\"none\"}', '2021-03-21 22:37:51'),
-(10, 1, 2, 20, 4, '{\"7\":\"a\",\"26\":\"a\",\"27\":\"a\",\"42\":\"a\",\"48\":\"a\",\"49\":\"a\",\"57\":\"a\",\"104\":\"a\",\"107\":\"a\",\"109\":\"a\",\"112\":\"a\",\"116\":\"a\",\"143\":\"a\",\"185\":\"a\",\"191\":\"a\",\"193\":\"a\",\"196\":\"a\",\"197\":\"a\",\"203\":\"a\",\"218\":\"a\"}', '2021-03-22 12:50:33'),
-(11, 1, 4, 20, 0, '{\"9\":\"none\",\"22\":\"none\",\"28\":\"none\",\"34\":\"none\",\"35\":\"none\",\"46\":\"none\",\"73\":\"none\",\"97\":\"none\",\"106\":\"none\",\"119\":\"none\",\"126\":\"none\",\"144\":\"none\",\"150\":\"none\",\"160\":\"none\",\"179\":\"none\",\"180\":\"none\",\"199\":\"none\",\"234\":\"none\",\"247\":\"none\",\"257\":\"none\"}', '2021-03-22 12:52:38'),
-(12, 2, 8, 20, 0, '{\"10\":\"none\",\"20\":\"none\",\"23\":\"none\",\"39\":\"none\",\"41\":\"none\",\"71\":\"none\",\"72\":\"none\",\"94\":\"none\",\"105\":\"none\",\"108\":\"none\",\"133\":\"none\",\"134\":\"none\",\"135\":\"none\",\"136\":\"none\",\"148\":\"none\",\"168\":\"none\",\"175\":\"none\",\"215\":\"none\",\"232\":\"none\",\"259\":\"none\"}', '2021-03-22 12:55:20'),
-(13, 1, 5, 20, 2, '{\"5\":\"a\",\"8\":\"a\",\"36\":\"none\",\"37\":\"none\",\"80\":\"none\",\"98\":\"none\",\"114\":\"none\",\"120\":\"none\",\"121\":\"none\",\"125\":\"none\",\"130\":\"none\",\"141\":\"none\",\"142\":\"none\",\"151\":\"none\",\"176\":\"none\",\"192\":\"none\",\"194\":\"none\",\"228\":\"d\",\"237\":\"none\",\"243\":\"a\"}', '2021-03-22 13:00:50'),
-(14, 2, 1, 20, 5, '{\"1\":\"b\",\"2\":\"c\",\"3\":\"b\",\"32\":\"d\",\"59\":\"d\",\"65\":\"none\",\"74\":\"none\",\"110\":\"none\",\"127\":\"none\",\"172\":\"none\",\"183\":\"none\",\"198\":\"none\",\"205\":\"none\",\"208\":\"none\",\"227\":\"none\",\"233\":\"none\",\"235\":\"none\",\"236\":\"none\",\"246\":\"none\",\"256\":\"a\"}', '2021-03-22 13:32:30'),
-(15, 1, 6, 20, 0, '{\"25\":\"none\",\"58\":\"none\",\"67\":\"none\",\"68\":\"none\",\"69\":\"none\",\"76\":\"none\",\"96\":\"none\",\"113\":\"none\",\"122\":\"none\",\"123\":\"none\",\"149\":\"none\",\"152\":\"none\",\"177\":\"none\",\"178\":\"none\",\"186\":\"none\",\"189\":\"none\",\"200\":\"none\",\"201\":\"none\",\"220\":\"none\",\"248\":\"none\"}', '2021-03-24 12:41:00'),
-(16, 6, 1, 20, 0, '{\"1\":\"none\",\"2\":\"none\",\"3\":\"none\",\"32\":\"none\",\"59\":\"none\",\"65\":\"none\",\"74\":\"none\",\"110\":\"none\",\"127\":\"none\",\"172\":\"none\",\"183\":\"none\",\"198\":\"none\",\"205\":\"none\",\"208\":\"a\",\"227\":\"none\",\"233\":\"none\",\"235\":\"none\",\"236\":\"none\",\"246\":\"none\",\"256\":\"a\"}', '2021-03-24 14:25:37'),
-(17, 6, 2, 20, 0, '{\"7\":\"none\",\"26\":\"none\",\"27\":\"none\",\"42\":\"none\",\"48\":\"none\",\"49\":\"none\",\"57\":\"none\",\"104\":\"none\",\"107\":\"none\",\"109\":\"none\",\"112\":\"none\",\"116\":\"none\",\"143\":\"none\",\"185\":\"none\",\"191\":\"none\",\"193\":\"none\",\"196\":\"none\",\"197\":\"none\",\"203\":\"none\",\"218\":\"none\"}', '2021-03-24 16:17:04'),
-(18, 6, 3, 20, 0, '{\"4\":\"c\",\"12\":\"b\",\"33\":\"none\",\"43\":\"a\",\"47\":\"none\",\"66\":\"a\",\"75\":\"none\",\"81\":\"none\",\"93\":\"none\",\"115\":\"none\",\"117\":\"none\",\"118\":\"none\",\"129\":\"none\",\"182\":\"none\",\"184\":\"none\",\"190\":\"none\",\"202\":\"none\",\"206\":\"none\",\"221\":\"none\",\"244\":\"none\"}', '2021-03-24 16:18:21'),
-(19, 6, 5, 20, 0, '{\"5\":\"none\",\"8\":\"none\",\"36\":\"none\",\"37\":\"none\",\"80\":\"none\",\"98\":\"none\",\"114\":\"none\",\"120\":\"none\",\"121\":\"none\",\"125\":\"none\",\"130\":\"none\",\"141\":\"none\",\"142\":\"none\",\"151\":\"none\",\"176\":\"none\",\"192\":\"none\",\"194\":\"none\",\"228\":\"none\",\"237\":\"none\",\"243\":\"none\"}', '2021-03-24 17:58:12');
-
 -- --------------------------------------------------------
 
 --
@@ -134,43 +110,6 @@ CREATE TABLE `login_times_logs` (
   `date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `login_times_logs`
---
-
-INSERT INTO `login_times_logs` (`id`, `user_id`, `date`) VALUES
-(1, 1, '2021-03-13 22:53:21'),
-(2, 1, '2021-03-15 07:25:36'),
-(3, 2, '2021-03-15 08:02:13'),
-(4, 1, '2021-03-15 22:43:37'),
-(5, 1, '2021-03-16 10:58:14'),
-(6, 2, '2021-03-16 12:40:37'),
-(7, 2, '2021-03-16 12:40:37'),
-(8, 2, '2021-03-16 12:44:40'),
-(9, 1, '2021-03-16 16:11:29'),
-(10, 1, '2021-03-17 10:12:10'),
-(11, 3, '2021-03-17 10:44:29'),
-(12, 1, '2021-03-17 13:05:32'),
-(13, 1, '2021-03-18 09:38:40'),
-(14, 3, '2021-03-18 15:45:07'),
-(15, 1, '2021-03-18 21:05:45'),
-(16, 1, '2021-03-21 17:09:28'),
-(17, 2, '2021-03-21 18:33:18'),
-(18, 2, '2021-03-21 21:07:47'),
-(19, 2, '2021-03-21 21:07:47'),
-(20, 1, '2021-03-22 10:15:59'),
-(21, 2, '2021-03-22 11:48:07'),
-(22, 2, '2021-03-22 11:48:07'),
-(23, 1, '2021-03-22 12:16:31'),
-(24, 1, '2021-03-24 11:29:36'),
-(25, 1, '2021-03-24 12:36:20'),
-(26, 1, '2021-03-24 12:38:26'),
-(27, 6, '2021-03-24 14:25:12'),
-(28, 6, '2021-03-24 14:26:59'),
-(29, 1, '2021-03-24 14:27:13'),
-(30, 1, '2021-03-24 14:47:53'),
-(31, 1, '2021-03-24 14:54:03');
-
 -- --------------------------------------------------------
 
 --
@@ -189,10 +128,10 @@ CREATE TABLE `memberships` (
 --
 
 INSERT INTO `memberships` (`membership_id`, `membership_name`, `description`, `membership_fee`) VALUES
-(1, 'basic', 'Agile with access to 8 assessments', 39.00),
-(2, 'scrum', 'Agile with access to all assessment', 49.00),
-(3, 'agilepremium', 'Scrum with access to all scrum exams', 29.00),
-(4, 'agileandscrum', 'Srcum and Agile with access to all assessments', 59.00);
+(1, 'basic', 'Agile with access to 8 Exams', 39.00),
+(2, 'scrum', 'Agile with access to all Exams', 49.00),
+(3, 'agilepremium', 'Scrum with access to all scrum Exams', 29.00),
+(4, 'agileandscrum', 'Srcum and Agile with access to all Exams', 59.00);
 
 -- --------------------------------------------------------
 
@@ -707,6 +646,9 @@ CREATE TABLE `user` (
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
+  `is_set_for_pass_resetting` tinyint(1) NOT NULL DEFAULT 0,
+  `pass_reset_code` text DEFAULT NULL,
+  `pwd_reset_date` datetime DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -715,11 +657,12 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `role_id`, `membership_id`, `name`, `email`, `password`, `created_at`, `updated_at`) VALUES
-(1, 1, 4, 'Abid Sattar', 'abidsatt@yahoo.com', '$2y$10$.tV4O0J7ESQfUR7O8JbhnOKKpvNmd0pMxuRENmJSWoDvAeTTZZhQS', '2021-03-11 15:50:05', '2021-03-11 15:50:05'),
-(2, 2, 1, 'Aleem Ahmad', 'aleemahmada107@gmail.com', '$2y$10$xRFR9enUib/fWq/5ibDRX.FmO31vyXNVAd9hjo2X1aIc3qT4VcNZ6', '2021-03-13 22:59:46', '2021-03-13 22:59:46'),
-(3, 2, 2, 'Umar Naeem', 'unaeeem40@gmail.com', '$2y$10$.tV4O0J7ESQfUR7O8JbhnOKKpvNmd0pMxuRENmJSWoDvAeTTZZhQS', '2021-03-13 22:59:46', '2021-03-13 22:59:46'),
-(6, 2, 1, 'John Doe', 'sb-mrc7i5510889@gmail.com', '$2y$10$vFPfcRRJW5Xf./VTr9T0QOFpQQxq3qbFVrJhfrXQWZlkPiNxDoJMm', '2021-03-24 14:20:42', '2021-03-24 14:20:42');
+INSERT INTO `user` (`id`, `role_id`, `membership_id`, `name`, `email`, `password`, `is_set_for_pass_resetting`, `pass_reset_code`, `pwd_reset_date`, `created_at`, `updated_at`) VALUES
+(1, 1, 4, 'Abid Sattar', 'abidsatt@yahoo.com', '$2y$10$.tV4O0J7ESQfUR7O8JbhnOKKpvNmd0pMxuRENmJSWoDvAeTTZZhQS', 0, NULL, NULL, '2021-03-11 15:50:05', '2021-03-11 15:50:05'),
+(2, 2, 1, 'Basic Member', 'basicmember@gmail.com', '$2y$10$l7wa4cDXediD31Ol6PSsRe1.xjnMiNrkHwDnAblWUoog6DOhW5Ima', 0, NULL, NULL, '2021-03-13 22:59:46', '2021-03-13 22:59:46'),
+(3, 2, 3, 'Umar Naeem', 'agilepremium@gmail.com', '$2y$10$.tV4O0J7ESQfUR7O8JbhnOKKpvNmd0pMxuRENmJSWoDvAeTTZZhQS', 0, NULL, NULL, '2021-03-13 22:59:46', '2021-03-13 22:59:46'),
+(6, 2, 4, 'John Doe', 'agileandscrum@gmail.com', '$2y$10$vFPfcRRJW5Xf./VTr9T0QOFpQQxq3qbFVrJhfrXQWZlkPiNxDoJMm', 0, NULL, NULL, '2021-03-24 14:20:42', '2021-03-24 14:20:42'),
+(7, 2, 2, 'Scrum Member', 'scrummember@gmail.com', '$2y$10$.tV4O0J7ESQfUR7O8JbhnOKKpvNmd0pMxuRENmJSWoDvAeTTZZhQS', 0, NULL, NULL, '2021-03-26 11:50:05', '2021-03-26 11:50:05');
 
 --
 -- Indexes for dumped tables
@@ -794,13 +737,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `assessments`
 --
 ALTER TABLE `assessments`
-  MODIFY `assessment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `assessment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `assessments_taken`
 --
 ALTER TABLE `assessments_taken`
-  MODIFY `assessment_t_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `assessment_t_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `assessment_category`
@@ -812,7 +755,7 @@ ALTER TABLE `assessment_category`
 -- AUTO_INCREMENT for table `login_times_logs`
 --
 ALTER TABLE `login_times_logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `memberships`
@@ -824,7 +767,7 @@ ALTER TABLE `memberships`
 -- AUTO_INCREMENT for table `questions`
 --
 ALTER TABLE `questions`
-  MODIFY `question_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=430;
+  MODIFY `question_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=423;
 
 --
 -- AUTO_INCREMENT for table `role`
@@ -842,7 +785,7 @@ ALTER TABLE `sections`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables

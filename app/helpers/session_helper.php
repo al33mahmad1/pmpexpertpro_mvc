@@ -1,6 +1,18 @@
 <?php
     session_start();
 
+    function createUserSession($user) {
+
+        $_SESSION['PMP_USER_ID'] = $user->id;
+        $_SESSION['PMP_USER_NAME'] = $user->name;
+        $_SESSION['PMP_USER_EMAIL'] = $user->email;
+        $_SESSION['PMP_USER_ROLE'] = strtolower($user->roleType);
+        $_SESSION['PMP_USER_MEMBERSHIP'] = strtolower($user->membership);
+        $_SESSION['PMP_LAST_ACTIVITY'] = time();
+        $_SESSION['PMP_EXAM_StARTED'] = false;
+        $_SESSION['PMP_EXAM_STARTED_ID'] = -1;
+
+    }
     // Flash message helper
     // EXAMPLE - flash('register_success', 'You are now registered');
     // DISPLAY IN VIEW - echo flash('register_success');

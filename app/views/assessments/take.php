@@ -53,7 +53,6 @@
             <?php if(isset($data['assessment']) && $data['assessment']):?>
                 <?php $i = 1;?>
                 <form action="javascript:void(0)">
-                <!-- <form action="<?=URLROOT?>/assessments/results" method="post"> -->
 
                 <?php foreach ($data['assessment'] as $assessment):?>
                     <div class="col-lg-12">
@@ -79,7 +78,7 @@
                 <input type="hidden" name="hiddenAssessmentId" id="hiddenAssessmentId" value="<?=$data['assessmentId']?>">
                 <input type="hidden" name="totalQuestions" id="totalQuestions" value="<?=--$i?>">
                 <input type="hidden" name="urlroot" id="urlroot" value="<?=URLROOT?>">
-                <button id="submit_test" class="btn btn-dark elevation-2">Submit Assignment</button>
+                <button id="submit_test" class="btn btn-dark elevation-2">Submit Exam</button>
             </div>
 
             </form>

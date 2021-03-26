@@ -9,6 +9,56 @@
         return $randomString;
     }
 
+    
+    function sendEmailPHP($mail, $OTP) {
+        $subject = "OTP For Password Reset";
+
+        $message = "
+        <html>
+        <head>
+        <title>OTP For Password Reset</title>
+        </head>
+        <body>
+            <p>Password reset OTP: $OTP</p>
+            <p>Ignore if you have not requested that.</p>
+        </body>
+        </html>
+        ";
+
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+
+        $headers .= 'From: Server Admin <support@pmpexpertpro.com>' . "\r\n";
+
+        try {
+            return (mail($mail,$subject,$message,$headers));
+        } catch (\Throwable $th) {
+            return false;
+        }
+    }
+
+    function generateOTP($length) {
+        $characters = '0123456789';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
+
+
+    function isValidatePassword($password) {
+        $specialChars = preg_match('@[^\w]@', $password);
+        $uppercase = preg_match('@[A-Z]@', $password);
+        $lowercase = preg_match('@[a-z]@', $password);
+        $number    = preg_match('@[0-9]@', $password);
+    
+        if(!$uppercase || !$lowercase || !$number || !$specialChars || strlen($password) < 8 || strlen($password) > 32)
+            return false;
+        return true;
+    }
+
     function getBool($val) {
         return filter_var($val, FILTER_VALIDATE_BOOLEAN);
     }
@@ -58,4 +108,18 @@
         } catch (\Throwable $th) {
             echo $th->getMessage();
         }
+    }
+
+    function startExam($id) {
+		$_SESSION['PMP_EXAM_StARTED'] = true;
+		$_SESSION['PMP_EXAM_STARTED_ID'] = $id;
+    }
+
+    function endExam() {
+		$_SESSION['PMP_EXAM_StARTED'] = false;
+		$_SESSION['PMP_EXAM_STARTED_ID'] = -1;
+    }
+
+    function isExamStarted() {
+        return (isset($_SESSION['PMP_EXAM_StARTED']) && $_SESSION['PMP_EXAM_StARTED']);
     }

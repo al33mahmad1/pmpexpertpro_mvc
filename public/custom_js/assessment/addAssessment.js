@@ -61,7 +61,7 @@ import { AjaxCall } from "../modules/ajax/ajax.js";
                         showErrorMessage("Something unexpected happened, please refresh the page and try again!", errorIds.error_message);
                         break;
                     case "success":
-                        showErrorMessage("New assessment created successfully!", ids.success_message);
+                        showErrorMessage("New exam created successfully!", ids.success_message);
                         break;
                     default:
                         break;
@@ -107,7 +107,7 @@ import { AjaxCall } from "../modules/ajax/ajax.js";
         console.log(assessmentName.length);
         if (assessmentName.length <= 0) {
             console.log("Show error");
-            $("#"+errorIds.assessment_name_err).text("Valid assessment name required.");
+            $("#"+errorIds.assessment_name_err).text("Valid exam name required.");
             return "Minimum 8 characters or longer required.";
         }
         $("#"+ids.assessment_name_err).text("");

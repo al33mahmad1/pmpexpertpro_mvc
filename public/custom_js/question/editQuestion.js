@@ -65,7 +65,7 @@ import { AjaxCall } from "../modules/ajax/ajax.js";
         };
     
         var errors = {
-            assessment_id_err: (inputs.assessment_id.length <= 0)? "Invalid assessment selected!" : "",
+            assessment_id_err: (inputs.assessment_id.length <= 0)? "Invalid exam selected!" : "",
             section_id_err: (inputs.section_id.length <= 0)? "Invalid category select!" : "",
             question_statement_err: (inputs.question_statement.length <= 0)? "Question statement is required!" : "",
             option_a_err: (inputs.option_a.length <= 0)? "Options A Required!" : "",

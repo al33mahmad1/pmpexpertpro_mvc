@@ -18,7 +18,11 @@
   <!-- /.login-logo -->
 
   <?php if(isset($_GET['q']) && $_GET['q'] == "paid"):?>
-    <div class="alert alert-success"><i class="fa fa-info-circle"></i> &nbsp;We sent you an email!</div>
+    <div class="alert alert-success" id="emailSent"><i class="fa fa-info-circle"></i> &nbsp;We sent you an email!</div>
+  <?php endif;?>
+  
+  <?php if(isset($_GET['q']) && $_GET['q'] == "pwdChanged"):?>
+    <div class="alert alert-success" id="passwordUpdated"><i class="fa fa-info-circle"></i> &nbsp;Congratulations! You password is updated.</div>
   <?php endif;?>
   <div class="alert alert-danger alert-dismissible" style="display: none;" id="error-message"></div>
   <div class="alert alert-warning alert-dismissible" style="display: none;" id="error-message-disabled"></div>
@@ -58,7 +62,7 @@
       </form>
 
       <div class="social-auth-links text-center mt-2 mb-3">
-        <a href="#" class="btn btn-block btn-outline-danger">
+        <a href="<?=URLROOT?>/users/forgotPassword" class="btn btn-block btn-outline-danger">
            I forgot my password
         </a>
       </div>
@@ -85,8 +89,15 @@
       setTimeout(function() {
           $("#msg-flash").fadeOut("slow");
       }, 6000);
+      setTimeout(function() {
+          $("#emailSent").fadeOut("slow");
+      }, 6000);
+      setTimeout(function() {
+          $("#passwordUpdated").fadeOut("slow");
+      }, 6000);
     }());
 
+    
   </script>
 </body>
 </html>
