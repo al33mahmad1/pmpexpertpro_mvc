@@ -56,6 +56,8 @@
 
                 <?php foreach ($data['assessment'] as $assessment):?>
                     <div class="col-lg-12">
+                    <?php echo flash('error');?>
+
                         <div class="card card-dark elevation-2" style="border-left: 3px solid #343a40;">
                         <div class="card-body">
                             <p class="card-text">Q<?=$i?>. <?=$assessment['question']?></p>
@@ -120,5 +122,12 @@
 <script src="<?=URLROOT?>/public/dist/js/demo.js"></script>
 
 <script src="<?=URLROOT?>/public/custom_js/assessment/take.js"></script>
+<script>
+  $(document).ready(function(){
+    setTimeout(() => {
+      $('#msg-flash').hide('slow');
+    }, 5000);
+  });
+</script>
 </body>
 </html>

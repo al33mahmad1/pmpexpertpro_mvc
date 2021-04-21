@@ -111,7 +111,7 @@ class Assessment {
 	function fetchStandardAssessments() {
 
 		try {
-			$this->db->query("SELECT assessments.*, assessments_taken.assessment_t_id, assessments_taken.date_done, assessment_category.assessment_category_name FROM assessments LEFT OUTER JOIN assessments_taken ON assessments.assessment_id=assessments_taken.assessment_id AND assessments_taken.user_id=:user_id INNER JOIN assessment_category ON assessment_category.assessment_category_id=assessments.assessment_category_id AND assessment_category.assessment_category_name='agile' ORDER BY assessments.assessment_id ASC;");
+			$this->db->query("SELECT assessments.*, assessments_taken.assessment_t_id, assessments_taken.date_done, assessment_category.assessment_category_name FROM assessments LEFT OUTER JOIN assessments_taken ON assessments.assessment_id=assessments_taken.assessment_id AND assessments_taken.user_id=:user_id INNER JOIN assessment_category ON assessment_category.assessment_category_id=assessments.assessment_category_id AND assessment_category.assessment_category_name='scrum' ORDER BY assessments.assessment_id ASC;");
 			$this->db->bind(":user_id", $_SESSION['PMP_USER_ID']);
 			$row = $this->db->resultSetAssocArray();
 			if($this->db->rowCount() > 0)
@@ -126,7 +126,7 @@ class Assessment {
 	function fetchStandardAssessmentsIds() {
 
 		try {
-			$this->db->query("SELECT assessments.assessment_id FROM assessments INNER JOIN assessment_category ON assessment_category.assessment_category_id=assessments.assessment_category_id AND assessment_category.assessment_category_name='agile' ORDER BY assessments.assessment_id ASC;");
+			$this->db->query("SELECT assessments.assessment_id FROM assessments INNER JOIN assessment_category ON assessment_category.assessment_category_id=assessments.assessment_category_id AND assessment_category.assessment_category_name='scrum' ORDER BY assessments.assessment_id ASC;");
 			$row = $this->db->resultSetAssocArray();
 			if($this->db->rowCount() > 0)
 				return $row;
@@ -140,7 +140,7 @@ class Assessment {
 	function fetchPremiumAssessments() {
 
 		try {
-			$this->db->query("SELECT assessments.*, assessments_taken.assessment_t_id, assessments_taken.date_done, assessment_category.assessment_category_name FROM assessments LEFT OUTER JOIN assessments_taken ON assessments.assessment_id=assessments_taken.assessment_id AND assessments_taken.user_id=:user_id INNER JOIN assessment_category ON assessment_category.assessment_category_id=assessments.assessment_category_id AND assessment_category.assessment_category_name='scrum' ORDER BY assessments.assessment_id ASC;");
+			$this->db->query("SELECT assessments.*, assessments_taken.assessment_t_id, assessments_taken.date_done, assessment_category.assessment_category_name FROM assessments LEFT OUTER JOIN assessments_taken ON assessments.assessment_id=assessments_taken.assessment_id AND assessments_taken.user_id=:user_id INNER JOIN assessment_category ON assessment_category.assessment_category_id=assessments.assessment_category_id AND assessment_category.assessment_category_name='agile' ORDER BY assessments.assessment_id ASC;");
 			$this->db->bind(":user_id", $_SESSION['PMP_USER_ID']);
 			$row = $this->db->resultSetAssocArray();
 			if($this->db->rowCount() > 0)
@@ -155,7 +155,7 @@ class Assessment {
 	function fetchPremiumAssessmentsIds() {
 
 		try {
-			$this->db->query("SELECT assessments.assessment_id FROM assessments INNER JOIN assessment_category ON assessment_category.assessment_category_id=assessments.assessment_category_id AND assessment_category.assessment_category_name='scrum' ORDER BY assessments.assessment_id ASC;");
+			$this->db->query("SELECT assessments.assessment_id FROM assessments INNER JOIN assessment_category ON assessment_category.assessment_category_id=assessments.assessment_category_id AND assessment_category.assessment_category_name='agile' ORDER BY assessments.assessment_id ASC;");
 			$row = $this->db->resultSetAssocArray();
 			if($this->db->rowCount() > 0)
 				return $row;

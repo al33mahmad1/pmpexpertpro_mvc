@@ -48,10 +48,10 @@
 						$dataUser['yourAssessments'] = ($temp > 8)? 8 : $temp;
 						break;
 					case STANDARD:
-						$dataUser['yourAssessments'] = $this->assessmentModal->totalAssessmentsInAgileCategory();
+						$dataUser['yourAssessments'] = $this->assessmentModal->totalAssessmentsInScrumCategory();
 						break;
 					case PREMIUM:
-						$dataUser['yourAssessments'] = $this->assessmentModal->totalAssessmentsInScrumCategory();
+						$dataUser['yourAssessments'] = $this->assessmentModal->totalAssessmentsInAgileCategory();
 						break;
 					case COMPREHENSIVE:
 						$dataUser['yourAssessments'] = $this->assessmentModal->getAssessmentCountInSystem();

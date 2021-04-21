@@ -50,6 +50,7 @@
 				redirect("users/login");
 			
 			if(isExamStarted() && $assessmentId != $_SESSION['PMP_EXAM_STARTED_ID']) {
+				flash('error', 'You can\'t access other exams unless you finish this exam!', 'alert alert-warning');
 				redirect("assessments/take/".$_SESSION['PMP_EXAM_STARTED_ID']);
 			}
 

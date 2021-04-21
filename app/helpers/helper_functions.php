@@ -28,7 +28,7 @@
         $headers = "MIME-Version: 1.0" . "\r\n";
         $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 
-        $headers .= 'From: Server Admin <support@pmpexpertpro.com>' . "\r\n";
+        $headers .= 'From:support@pmpexpertpro.com' . "\r\n";
 
         try {
             return (mail($mail,$subject,$message,$headers));
