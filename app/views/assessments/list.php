@@ -50,42 +50,124 @@
             
         <div class="row">
           <div class="col-12">
-            <div class="card">
+
+            <?php if($_SESSION['PMP_USER_MEMBERSHIP'] == COMPREHENSIVE):?>
+              <div class="card">
              
-              <!-- card-body -->
-              <div class="card-body p-2">
+             <!-- card-body -->
+             <div class="card-body p-2">
 
-                <div class="row mb-3">
-                  <div class="col-md-12 text-center">
-                    <h1>Welcome</h1>
+               <div class="row mb-3">
+                 <div class="col-md-12 text-center">
+                   <h1>Agile Exams</h1>
+                 </div>
+               </div>
+
+               <!-- Small boxes (Stat box) -->
+               <div class="row justify-content-center">
+
+               <?php if(isset($data['assessments']) && $data['assessments']):?>
+                 <?php foreach ($data['assessments'] as $assessment):?>
+                  <?php if($assessment['assessment_category_name'] == 'agile'):?>
+                   <div class="col-md-3 col-sm-4 col-lg-3 col-xs-4 px-5 py-3 mb-5 text-center rounded hover-affect">
+                     <h4 class="text-gray"><?php echo $assessment['assessment_name'];?></h4>
+                     <div class="bg-white">
+                       <div class="icon text-center px-2 py-1">
+                         <a class="<?php echo ($assessment['assessment_t_id'] == NULL)? "give_test_first_time": "retake_test";?>" type="button" data-assessment-id="<?=$assessment['assessment_id']?>" data-assessment-category-id="<?=$assessment['assessment_category_id']?>" data-exam-name="<?=$assessment['assessment_name']?>" data-assessment-t-id="<?php echo ($assessment['assessment_t_id'] == NULL)? false: $assessment['assessment_t_id'] ;?>" data-date-taken="<?php echo ($assessment['assessment_t_id'] == NULL)? "": timeStampToFormattedDate($assessment['date_done']);?>">
+                           <img src="<?=URLROOT?>/public/img/assess/<?php echo ($assessment['assessment_t_id'] == NULL)? "pend": "done";?>.png" width="85%" height="150px" alt="">
+                         </a>
+                       </div>
+                     </div>
+                   </div>
+                   <?php endif;?>
+                   <?php endforeach;?>
+                 <?php endif;?>
+
+               </div>
+               <!-- /.row -->
+             </div>
+             <!-- /.card-body -->
+           </div>
+           <!-- /.card -->
+
+           <div class="card">
+             
+             <!-- card-body -->
+             <div class="card-body p-2">
+
+               <div class="row mb-3">
+                 <div class="col-md-12 text-center">
+                   <h1>Scrum Exams</h1>
+                 </div>
+               </div>
+
+               <!-- Small boxes (Stat box) -->
+               <div class="row justify-content-center">
+
+               <?php if(isset($data['assessments']) && $data['assessments']):?>
+                 <?php foreach ($data['assessments'] as $assessment):?>
+
+                   <?php if($assessment['assessment_category_name'] == 'scrum'):?>
+                   <div class="col-md-3 col-sm-4 col-lg-3 col-xs-4 px-5 py-3 mb-5 text-center rounded hover-affect">
+                     <h4 class="text-gray"><?php echo $assessment['assessment_name'];?></h4>
+                     <div class="bg-white">
+                       <div class="icon text-center px-2 py-1">
+                         <a class="<?php echo ($assessment['assessment_t_id'] == NULL)? "give_test_first_time": "retake_test";?>" type="button" data-assessment-id="<?=$assessment['assessment_id']?>" data-assessment-category-id="<?=$assessment['assessment_category_id']?>" data-exam-name="<?=$assessment['assessment_name']?>" data-assessment-t-id="<?php echo ($assessment['assessment_t_id'] == NULL)? false: $assessment['assessment_t_id'] ;?>" data-date-taken="<?php echo ($assessment['assessment_t_id'] == NULL)? "": timeStampToFormattedDate($assessment['date_done']);?>">
+                           <img src="<?=URLROOT?>/public/img/assess/<?php echo ($assessment['assessment_t_id'] == NULL)? "pend": "done";?>.png" width="85%" height="150px" alt="">
+                         </a>
+                       </div>
+                     </div>
+                   </div>
+                   <?php endif;?>
+                   <?php endforeach;?>
+                 <?php endif;?>
+
+               </div>
+               <!-- /.row -->
+             </div>
+             <!-- /.card-body -->
+           </div>
+           <!-- /.card -->
+
+            <?php else:?>
+              <div class="card">
+             
+                <!-- card-body -->
+                <div class="card-body p-2">
+
+                  <div class="row mb-3">
+                    <div class="col-md-12 text-center">
+                      <h1>Welcome</h1>
+                    </div>
                   </div>
-                </div>
 
-                <!-- Small boxes (Stat box) -->
-                <div class="row justify-content-center">
+                  <!-- Small boxes (Stat box) -->
+                  <div class="row justify-content-center">
 
-                <?php if(isset($data['assessments']) && $data['assessments']):?>
-                  <?php foreach ($data['assessments'] as $assessment):?>
+                  <?php if(isset($data['assessments']) && $data['assessments']):?>
+                    <?php foreach ($data['assessments'] as $assessment):?>
 
-                    <div class="col-md-3 col-sm-4 col-lg-3 col-xs-4 px-5 py-3 mb-5 text-center rounded hover-affect">
-                      <h4 class="text-gray"><?php echo $assessment['assessment_name'];?></h4>
-                      <div class="bg-white">
-                        <div class="icon text-center px-2 py-1">
-                          <a class="<?php echo ($assessment['assessment_t_id'] == NULL)? "give_test_first_time": "retake_test";?>" type="button" data-assessment-id="<?=$assessment['assessment_id']?>" data-assessment-category-id="<?=$assessment['assessment_category_id']?>" data-exam-name="<?=$assessment['assessment_name']?>" data-assessment-t-id="<?php echo ($assessment['assessment_t_id'] == NULL)? false: $assessment['assessment_t_id'] ;?>" data-date-taken="<?php echo ($assessment['assessment_t_id'] == NULL)? "": timeStampToFormattedDate($assessment['date_done']);?>">
-                            <img src="<?=URLROOT?>/public/img/assess/<?php echo ($assessment['assessment_t_id'] == NULL)? "pend": "done";?>.png" width="85%" height="150px" alt="">
-                          </a>
+                      <div class="col-md-3 col-sm-4 col-lg-3 col-xs-4 px-5 py-3 mb-5 text-center rounded hover-affect">
+                        <h4 class="text-gray"><?php echo $assessment['assessment_name'];?></h4>
+                        <div class="bg-white">
+                          <div class="icon text-center px-2 py-1">
+                            <a class="<?php echo ($assessment['assessment_t_id'] == NULL)? "give_test_first_time": "retake_test";?>" type="button" data-assessment-id="<?=$assessment['assessment_id']?>" data-assessment-category-id="<?=$assessment['assessment_category_id']?>" data-exam-name="<?=$assessment['assessment_name']?>" data-assessment-t-id="<?php echo ($assessment['assessment_t_id'] == NULL)? false: $assessment['assessment_t_id'] ;?>" data-date-taken="<?php echo ($assessment['assessment_t_id'] == NULL)? "": timeStampToFormattedDate($assessment['date_done']);?>">
+                              <img src="<?=URLROOT?>/public/img/assess/<?php echo ($assessment['assessment_t_id'] == NULL)? "pend": "done";?>.png" width="85%" height="150px" alt="">
+                            </a>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <?php endforeach;?>
-                  <?php endif;?>
+                      <?php endforeach;?>
+                    <?php endif;?>
 
+                  </div>
+                  <!-- /.row -->
                 </div>
-                <!-- /.row -->
+                <!-- /.card-body -->
               </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
+              <!-- /.card -->
+            <?php endif;?>
+            
           </div>
         </div>
         <!-- /.row -->

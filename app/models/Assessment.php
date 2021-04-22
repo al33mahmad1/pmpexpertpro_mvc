@@ -52,7 +52,7 @@ class Assessment {
 	function getAssessmentsTakenHistory() {
 
 		try {
-			$this->db->query("SELECT att.*, a.assessment_name FROM assessments_taken att, assessments a where att.user_id=:user_id AND a.assessment_id=att.assessment_id ORDER BY date_done DESC;");
+			$this->db->query("SELECT ac.assessment_category_name, att.*, a.assessment_name FROM assessments_taken att, assessments a, assessment_category ac where att.user_id=:user_id AND a.assessment_id=att.assessment_id AND ac.assessment_category_id=a.assessment_category_id ORDER BY date_done DESC;");
 			$this->db->bind(":user_id", $_SESSION['PMP_USER_ID']);
 			$row = $this->db->resultSetAssocArray();
 			if($this->db->rowCount() > 0)
@@ -82,7 +82,7 @@ class Assessment {
 	function fetchBasicAssessments() {
 
 		try {
-			$this->db->query("SELECT assessments.*, assessments_taken.assessment_t_id, assessments_taken.date_done, assessment_category.assessment_category_name FROM assessments LEFT OUTER JOIN assessments_taken ON assessments.assessment_id=assessments_taken.assessment_id AND assessments_taken.user_id=:user_id INNER JOIN assessment_category ON assessment_category.assessment_category_id=assessments.assessment_category_id AND assessment_category.assessment_category_name='agile' ORDER BY assessments.assessment_id ASC LIMIT 8;");
+			$this->db->query("SELECT assessments.*, assessments_taken.assessment_t_id, assessments_taken.date_done, assessment_category.assessment_category_name FROM assessments LEFT OUTER JOIN assessments_taken ON assessments.assessment_id=assessments_taken.assessment_id AND assessments_taken.user_id=:user_id INNER JOIN assessment_category ON assessment_category.assessment_category_id=assessments.assessment_category_id AND assessment_category.assessment_category_name='agile' GROUP BY assessments.assessment_id ORDER BY assessments.assessment_id ASC LIMIT 8;");
 			$this->db->bind(":user_id", $_SESSION['PMP_USER_ID']);
 			$row = $this->db->resultSetAssocArray();
 			if($this->db->rowCount() > 0)
@@ -111,7 +111,7 @@ class Assessment {
 	function fetchStandardAssessments() {
 
 		try {
-			$this->db->query("SELECT assessments.*, assessments_taken.assessment_t_id, assessments_taken.date_done, assessment_category.assessment_category_name FROM assessments LEFT OUTER JOIN assessments_taken ON assessments.assessment_id=assessments_taken.assessment_id AND assessments_taken.user_id=:user_id INNER JOIN assessment_category ON assessment_category.assessment_category_id=assessments.assessment_category_id AND assessment_category.assessment_category_name='scrum' ORDER BY assessments.assessment_id ASC;");
+			$this->db->query("SELECT assessments.*, assessments_taken.assessment_t_id, assessments_taken.date_done, assessment_category.assessment_category_name FROM assessments LEFT OUTER JOIN assessments_taken ON assessments.assessment_id=assessments_taken.assessment_id AND assessments_taken.user_id=:user_id INNER JOIN assessment_category ON assessment_category.assessment_category_id=assessments.assessment_category_id AND assessment_category.assessment_category_name='scrum' GROUP BY assessments.assessment_id ORDER BY assessments.assessment_id ASC;");
 			$this->db->bind(":user_id", $_SESSION['PMP_USER_ID']);
 			$row = $this->db->resultSetAssocArray();
 			if($this->db->rowCount() > 0)
@@ -140,7 +140,7 @@ class Assessment {
 	function fetchPremiumAssessments() {
 
 		try {
-			$this->db->query("SELECT assessments.*, assessments_taken.assessment_t_id, assessments_taken.date_done, assessment_category.assessment_category_name FROM assessments LEFT OUTER JOIN assessments_taken ON assessments.assessment_id=assessments_taken.assessment_id AND assessments_taken.user_id=:user_id INNER JOIN assessment_category ON assessment_category.assessment_category_id=assessments.assessment_category_id AND assessment_category.assessment_category_name='agile' ORDER BY assessments.assessment_id ASC;");
+			$this->db->query("SELECT assessments.*, assessments_taken.assessment_t_id, assessments_taken.date_done, assessment_category.assessment_category_name FROM assessments LEFT OUTER JOIN assessments_taken ON assessments.assessment_id=assessments_taken.assessment_id AND assessments_taken.user_id=:user_id INNER JOIN assessment_category ON assessment_category.assessment_category_id=assessments.assessment_category_id AND assessment_category.assessment_category_name='agile' GROUP BY assessments.assessment_id ORDER BY assessments.assessment_id ASC;");
 			$this->db->bind(":user_id", $_SESSION['PMP_USER_ID']);
 			$row = $this->db->resultSetAssocArray();
 			if($this->db->rowCount() > 0)
@@ -169,7 +169,7 @@ class Assessment {
 	function fetchComprehensiveAssessments() {
 
 		try {
-			$this->db->query("SELECT assessments.*, assessments_taken.assessment_t_id, assessments_taken.date_done, assessment_category.assessment_category_name FROM assessments LEFT OUTER JOIN assessments_taken ON assessments.assessment_id=assessments_taken.assessment_id AND assessments_taken.user_id=:user_id INNER JOIN assessment_category ON assessment_category.assessment_category_id=assessments.assessment_category_id ORDER BY assessments.assessment_id ASC;");
+			$this->db->query("SELECT assessments.*, assessments_taken.assessment_t_id, assessments_taken.date_done, assessment_category.assessment_category_name FROM assessments LEFT OUTER JOIN assessments_taken ON assessments.assessment_id=assessments_taken.assessment_id AND assessments_taken.user_id=:user_id INNER JOIN assessment_category ON assessment_category.assessment_category_id=assessments.assessment_category_id GROUP BY assessments.assessment_id ORDER BY assessments.assessment_id ASC;");
 			$this->db->bind(":user_id", $_SESSION['PMP_USER_ID']);
 			$row = $this->db->resultSetAssocArray();
 			if($this->db->rowCount() > 0)

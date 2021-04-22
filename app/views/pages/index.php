@@ -250,6 +250,7 @@
                       <tr>
                         <th style="width: 10px">#</th>
                         <th>Exam Name</th>
+                        <th>Exam Category</th>
                         <th>Date Accomplished</th>
                         <th>Total Questions</th>
                         <th>Correct Answers</th>
@@ -263,6 +264,7 @@
                       <tr>
                         <td><?=$i?></td>
                         <td><?=ucfirst($assessment['assessment_name'])?></td>
+                        <td><?=ucfirst($assessment['assessment_category_name'])?></td>
                         <td><?=timeStampToFormattedDateWithTime($assessment['date_done'])?></td>
                         <td><?=$assessment['totalQuestions']?></td>
                         <td><?=$assessment['score']?></td>
